@@ -17,7 +17,7 @@ import { Action } from 'rxjs/scheduler/Action';
 import { AllUserData } from '../../shared/to/all-user-data';
 import * as _ from 'lodash';
 
-export function storeReducer(state: ApplicationState, action: LoadUserThreadsAction): ApplicationState {
+export function storeReducer(state: ApplicationState = INITIAL_APPLICATION_STATE, action: LoadUserThreadsAction): ApplicationState {
   switch (action.type) {
     case LOAD_USER_THREADS_ACTION:
       return handleLoadUserThreadsAction(state, action);
@@ -52,7 +52,7 @@ function handleLoadUserThreadsAction(state: ApplicationState, action: LoadUserTh
     BrowserModule,
     FormsModule,
     HttpModule,
-    StoreModule.forRoot({store1: storeReducer})
+    StoreModule.forRoot({storeReducer} )
   ],
   providers: [ThreadsService],
   bootstrap: [AppComponent]
