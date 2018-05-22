@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ThreadsService } from '../services/threads.service';
 import { Store } from '@ngrx/store';
 import { LoadUserThreadsAction } from '../store/actions';
+import 'rxjs/add/operator/skip';
 
 
 @Component({
@@ -11,8 +12,14 @@ import { LoadUserThreadsAction } from '../store/actions';
   styleUrls: ['./thread-section.component.css']
 })
 export class ThreadSectionComponent implements OnInit {
-  constructor(private threadsService: ThreadsService, private store: Store<ApplicationState>) {
-    store.subscribe(state => console.log('thread section recieved state', state));
+  userName; string;
+
+  constructor(private threadsService: ThreadsService, private store: Store<{ storeReducer: ApplicationState }>) {
+    store
+      .skip(1)
+      .subscribe(state => {
+        this.userName = state.storeReducer.storeData.participants[state.storeReducer.uiState.userId].name;
+      });
   }
 
   ngOnInit() {
