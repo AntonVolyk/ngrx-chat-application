@@ -1,11 +1,14 @@
 
-# Ngrx Reactive Extensions Course
+# To Run the Chat Application Backend Server
+We can start the chat backend server with the following command:
 
-Ongoing
+npm run api-server
+This will start a server on localhost port 8090.
 
+# To Run the Chat Application Frontend Server
+We can start the chat application with the following command:
 
-# Data for the in-memory Database
-
-This is the data that the application will have at startup time - [Initial Data](https://raw.githubusercontent.com/angular-university/ngrx-course/backup/src/server/db/db-data.ts)
+npm start 
+The application is visible at port 4200 - http://localhost:4200
 
 
