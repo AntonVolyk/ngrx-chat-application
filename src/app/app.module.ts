@@ -11,20 +11,23 @@ import { MessageSectionComponent } from './message-section/message-section.compo
 import { ThreadListComponent } from './thread-list/thread-list.component';
 import { MessageListComponent } from './message-list/message-list.component';
 import { ThreadsService } from './services/threads.service';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, ActionReducerMap } from '@ngrx/store';
 import { INITIAL_APPLICATION_STATE, ApplicationState } from './store/application-state';
 import { Action } from 'rxjs/scheduler/Action';
 import { AllUserData } from '../../shared/to/all-user-data';
 import * as _ from 'lodash';
 
-export function storeReducer(state: ApplicationState = INITIAL_APPLICATION_STATE, action: LoadUserThreadsAction): ApplicationState {
+export function storeReducer(
+  state: ApplicationState = INITIAL_APPLICATION_STATE,
+  action: LoadUserThreadsAction
+): ApplicationState {
   switch (action.type) {
     case LOAD_USER_THREADS_ACTION:
       return handleLoadUserThreadsAction(state, action);
     default:
-    return state;
+      return state;
   }
- }
+}
 
 function handleLoadUserThreadsAction(state: ApplicationState, action: LoadUserThreadsAction): ApplicationState {
   const userData = action.payload;
@@ -52,7 +55,7 @@ function handleLoadUserThreadsAction(state: ApplicationState, action: LoadUserTh
     BrowserModule,
     FormsModule,
     HttpModule,
-    StoreModule.forRoot({storeReducer} )
+    StoreModule.forRoot({storeReducer: storeReducer})
   ],
   providers: [ThreadsService],
   bootstrap: [AppComponent]
