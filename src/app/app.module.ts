@@ -55,7 +55,7 @@ function handleLoadUserThreadsAction(state: ApplicationState, action: LoadUserTh
     BrowserModule,
     FormsModule,
     HttpModule,
-    StoreModule.forRoot({storeReducer: storeReducer})
+    StoreModule.forRoot({appState: storeReducer})
   ],
   providers: [ThreadsService],
   bootstrap: [AppComponent]
