@@ -44,11 +44,13 @@ export class ThreadSectionComponent implements OnInit {
         return threads.map(thread => {
           const names = _.keys(thread.participants).map(id => state.storeReducer.storeData.participants[id].name);
           const lastMessageId = _.last(thread.messageIds);
+          const lastMessage =  state.storeReducer.storeData.messages[lastMessageId];
 
           return {
             id: thread.id,
             participantNames: _.join(names, ','),
-            lastMessageText: state.storeReducer.storeData.messages[lastMessageId].text
+            lastMessageText: lastMessage.text,
+            timestamp: lastMessage.timestamp
           }
         });
       }
