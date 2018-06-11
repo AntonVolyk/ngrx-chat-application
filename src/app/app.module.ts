@@ -1,4 +1,5 @@
-import { LoadUserThreadsAction, LOAD_USER_THREADS_ACTION } from './store/actions';
+import { LoadThreadsEffectService } from './store/effects/load-threads-effect.service';
+import { UserThreadsLoadedAction, USER_THREADS_LOADED_ACTION } from './store/actions';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -16,20 +17,21 @@ import { INITIAL_APPLICATION_STATE, ApplicationState } from './store/application
 import { Action } from 'rxjs/scheduler/Action';
 import { AllUserData } from '../../shared/to/all-user-data';
 import * as _ from 'lodash';
+import { EffectsModule } from '@ngrx/effects';
 
 export function storeReducer(
   state: ApplicationState = INITIAL_APPLICATION_STATE,
-  action: LoadUserThreadsAction
+  action: UserThreadsLoadedAction
 ): ApplicationState {
   switch (action.type) {
-    case LOAD_USER_THREADS_ACTION:
+    case USER_THREADS_LOADED_ACTION:
       return handleLoadUserThreadsAction(state, action);
     default:
       return state;
   }
 }
 
-function handleLoadUserThreadsAction(state: ApplicationState, action: LoadUserThreadsAction): ApplicationState {
+function handleLoadUserThreadsAction(state: ApplicationState, action: UserThreadsLoadedAction): ApplicationState {
   const userData = action.payload;
   const newState: ApplicationState = Object.assign({}, state);
 
@@ -55,7 +57,8 @@ function handleLoadUserThreadsAction(state: ApplicationState, action: LoadUserTh
     BrowserModule,
     FormsModule,
     HttpModule,
-    StoreModule.forRoot({appState: storeReducer})
+    StoreModule.forRoot({appState: storeReducer}),
+    EffectsModule.forRoot([LoadThreadsEffectService])
   ],
   providers: [ThreadsService],
   bootstrap: [AppComponent]

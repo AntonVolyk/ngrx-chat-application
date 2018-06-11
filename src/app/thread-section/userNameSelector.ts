@@ -1,8 +1,8 @@
-import { StoreData } from './../store/store-data';
+import { StoreData, AppState } from './../store/store-data';
 import { ApplicationState } from './../store/application-state';
 import { Store } from '@ngrx/store';
 
-export function userNameSelector (state: {appState: ApplicationState}): string {
+export function userNameSelector (state: AppState): string {
     const currentUserId = state.appState.uiState.userId;
     const currentParticipant = state.appState.storeData.participants[currentUserId];
     
@@ -10,5 +10,5 @@ export function userNameSelector (state: {appState: ApplicationState}): string {
         return '';
     }
 
-    return currentParticipant.name;
+    return currentParticipant ? currentParticipant.name : '';
 }
