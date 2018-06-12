@@ -18,6 +18,7 @@ import { Action } from 'rxjs/scheduler/Action';
 import { AllUserData } from '../../shared/to/all-user-data';
 import * as _ from 'lodash';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 export function storeReducer(
   state: ApplicationState = INITIAL_APPLICATION_STATE,
@@ -58,7 +59,8 @@ function handleLoadUserThreadsAction(state: ApplicationState, action: UserThread
     FormsModule,
     HttpModule,
     StoreModule.forRoot({appState: storeReducer}),
-    EffectsModule.forRoot([LoadThreadsEffectService])
+    EffectsModule.forRoot([LoadThreadsEffectService]),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [ThreadsService],
   bootstrap: [AppComponent]
